@@ -1,0 +1,45 @@
+<h4>Parent component</h4>
+<h1>Addresses</h1>
+
+ <!-- created only 1 child componenet(address) but used  it twice -->
+<!-- child 1 -->
+<app-address
+[title] ="'Office Address'"
+[addressForm] = 'officeForm'
+ [submitted]="submitted">
+</app-address>
+
+<!-- child 2 -->
+<app-address
+[title] ="'Home Address'"
+[addressForm] = 'homeForm'
+ [submitted]="submitted">
+</app-address>
+
+<button 
+class="btn" 
+(click)="submitAddress()" 
+[disabled]="officeForm.invalid || homeForm.invalid">
+  Submit
+</button>
+
+<!-- Display Address Details -->
+@if (submitted) { 
+
+  <h3>Submitted Address Details are:</h3>
+
+  <h4>Office Address</h4>
+  <p>pincode: {{ officeForm.value.pincode }}</p>
+  <p>houseNo: {{ officeForm.value.houseNo }}</p>
+  <p>city: {{ officeForm.value.city }}</p>
+
+  <hr>
+
+  <h4>Home Address</h4>
+  <p>pincode: {{ homeForm.value.pincode }}</p>
+  <p>houseNo : {{ homeForm.value.houseNo }}</p>
+  <p>city: {{ homeForm.value.city }}</p>
+
+}
+
+

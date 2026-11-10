@@ -1,0 +1,58 @@
+<p>child component</p>
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{title}}
+        </mat-panel-title>
+          <mat-panel-description>
+            @if(submitted && !isEditing ) {
+                <button
+                class="editBtn"
+                matButton = "outlined"
+                    type = "button"
+                    (click) = "$event.stopPropagation(); editAddress()">
+                    Edit
+                </button>
+            }
+          </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <form [formGroup] = 'addressForm'>
+
+        <mat-form-field appearance = "outline">
+            <mat-label>Pincode</mat-label>
+            <input matInput formControlName = "pincode" required  [readonly]="submitted && !isEditing"/>
+            @if(addressForm.get('pincode')?.hasError('required') 
+            && addressForm.get('pincode')?.touched) {
+                <mat-error>
+                    Pincode is required
+                </mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance = "outline">
+             <mat-label>house number</mat-label>
+              <input matInput formControlName = "houseNo"
+               [readonly]="submitted && !isEditing"/>
+        </mat-form-field>
+
+         <mat-form-field appearance = "outline">
+             <mat-label>city</mat-label>
+              <input matInput formControlName = "city"  [readonly]="submitted && !isEditing"/>
+        </mat-form-field>
+
+
+        <!-- save btn -->
+         @if(isEditing)  {
+            <button 
+            class="saveBtn"
+            matButton = "outlined"
+            type="button"
+            [disabled] = "addressForm.invalid"
+            (click) = "saveAddress()"
+            >Save</button>
+         }
+
+    </form>
+</mat-expansion-panel>
+
